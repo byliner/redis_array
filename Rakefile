@@ -15,10 +15,10 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "redis_multi_list"
-  gem.homepage = "http://github.com/ketzusaka/redis_multi_list"
+  gem.homepage = "http://github.com/byliner/redis_multi_list"
   gem.license = "MIT"
   gem.summary = %Q{Easy Multi Dimensional Arrays in Redis}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{Create persistent, redis-backed arrays with a simple, familiar syntax}
   gem.email = "ketzu@me.com"
   gem.authors = ["James Richard"]
   # dependencies defined in Gemfile
