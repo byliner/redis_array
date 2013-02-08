@@ -14,8 +14,8 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "redis_multi_list"
-  gem.homepage = "http://github.com/byliner/redis_multi_list"
+  gem.name = "redis_array"
+  gem.homepage = "http://github.com/byliner/redis_array"
   gem.license = "MIT"
   gem.summary = %Q{Easy Multi Dimensional Arrays in Redis}
   gem.description = %Q{Create persistent, redis-backed arrays with a simple, familiar syntax}
@@ -43,7 +43,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "redis_multi_list #{version}"
+  rdoc.title = "redis_array #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
