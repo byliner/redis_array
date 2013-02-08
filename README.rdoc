@@ -6,8 +6,11 @@ an error because Redis only supports string storage. In addition, if you store a
 be converted into a string, such as an integer, when you access the value it will be a string. A work-around will be
 developed in the near future to support serialized objects and typecasting, though.
 
-redis_array works by creating a list in redis for each array. Array keys are unique, so you cannot have multiple
-"test" keys, for example.
+redis_array works by creating a list in redis for each array. Redis requires a unique key for each list. RedisArray
+will create one if you don't provide one. However, you can use that to your advantage to create named arrays that act
+similar to hashes.
+
+Array keys are unique, so you cannot have multiple "test" keys, for example.
 
 ```ruby
 list1 = RedisArray.new("list1") # Redis key will be redisarray:list1
