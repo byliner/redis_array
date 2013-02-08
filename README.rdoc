@@ -1,4 +1,4 @@
-= redis_multi_list
+= redis_array
 
 This library provides a way to store Ruby arrays in redis with *little* fuss. You're free to store anything that can be
 converted to a string and other arrays that contain objects that can be converted into a string. Anything else will throw
@@ -6,42 +6,48 @@ an error because Redis only supports string storage. In addition, if you store a
 be converted into a string, such as an integer, when you access the value it will be a string. A work-around will be
 developed in the near future to support serialized objects and typecasting, though.
 
-redis_multi_list works by creating a list in redis for each array. Array keys are unique, so you cannot have multiple
+redis_array works by creating a list in redis for each array. Array keys are unique, so you cannot have multiple
 "test" keys, for example.
 
 ```ruby
-list1 = RedisMultiList.get("list1") # Redis key will be redismultilist:list1
-list2 = RedisMultiList.get("list2") # Redis key will be redismultilist:list2
-list1.push list2 # The value of index 0 in the list redismultlist:list1 will be redismultilist:~>list2
-list1[0] # Will return a RedisMultiList::List object representing the values within redismultilist:list2
+list1 = RedisArray.new("list1") # Redis key will be redisarray:list1
+list2 = RedisMultiList.new("list2") # Redis key will be redisarray:list2
+list1.push list2 # The value of index 0 in the list redisarray:list1 will be redisarray:~>list2
+list1[0] # Will return a RedisArray object representing the values within redisarray:list2
 ```
 
 All retreival actions are done through Redis, so you don't have to worry about concurrency between processes when
 accessing a List, or creating a different list instance using the same key.
 
-redis_multi_list attempts to act more like a Ruby Array then a Redis List. For example, LPOP in redis removes the first
-item within a list, whereas #pop on a RedisMultiList::List instance will remove the last.
+redis_array attempts to act more like a Ruby Array then a Redis List. For example, LPOP in redis removes the first
+item within a list, whereas #pop on a RedisArray instance will remove the last.
 
 == Configuration
 
-redis_multi_list needs to have a redis connection to work properly. Where ever you open your Redis connection you should set it.
+redis_array needs to have a redis connection to work properly. Where ever you open your Redis connection you should set it.
 For example:
 
 ```ruby
 redis = Redis.new(ENV['OPENREDIS_URI'])
-RedisMultiList.redis = redis
+RedisArray.redis = redis
 ```
 
-redis_multi_list namespaces the arrays it stores. By default, it uses "redismultilist". Feel free to change it to
+redis_array namespaces the arrays it stores. By default, it uses "redisarray". Feel free to change it to
 whatever works and is unique.
 
 == Usage
 
-Use RedisMultiList.get("list-name") to obtain a list. Use this whether the list already exists or not. Nothing will be
-added into redis until a value is pushed in. You can also call it without a list name, and a random one will be
-generated for you.
+Use RedisArray.new("list-name") to create or obtain a list. If the list already exists in Redis this will not create
+a new one; it will just access the existing. You can also use RedisArray.get("list-name"), which is just an alias for
+new. Use this whether the list already exists or not. Nothing will be added into redis until a value is pushed in. You
+can also call it without a list name, and a random one will be generated for you:
 
-Each RedisMultiList::List instance supports the following methods, which behave like the Ruby Array class, along
+```
+RedisArray.new
+=> #<RedisArray:0x007fba4c4503b8 @key="e5f0dfbfa8fdcf2cef63f4ca6369a98c">
+```
+
+Each RedisArray instance supports the following methods, which behave like the Ruby Array class, along
 with including the Enumerable module: [], all, count, []=, <<, +, push, pop, delete_at, delete, and clear.
 
 == Gotchas
@@ -53,7 +59,7 @@ until delete-by-index is supported using that method should be avoided. It's bet
 Concatenating a List will append the rvalue to the list, rather then make a new one composed of the two values. This is
 to maintain the key layout, but it is useful to add many items at once by providing them in an array.
 
-== Contributing to redis_multi_list
+== Contributing to redis_array
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
