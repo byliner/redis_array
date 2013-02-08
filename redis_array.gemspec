@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "redis_multi_list"
+  s.name = "redis_array"
   s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -25,13 +25,12 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
-    "lib/redis_multi_list.rb",
-    "lib/redis_multi_list/list.rb",
-    "spec/redis_multi_list/list_spec.rb",
-    "spec/redis_multi_list_spec.rb",
+    "lib/redis_array.rb",
+    "redis_array.gemspec",
+    "spec/redis_array_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = "http://github.com/byliner/redis_multi_list"
+  s.homepage = "http://github.com/byliner/redis_array"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
